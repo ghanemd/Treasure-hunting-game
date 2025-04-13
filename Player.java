@@ -63,7 +63,7 @@ public class Player extends Entity{
             this.x += speed ;
         }
         spriteCounter++ ;
-        if (spriteCounter > 50)
+        if (spriteCounter > 10)
         {
             if (spriteNumber == 1){
                 spriteNumber = 2 ;
@@ -71,6 +71,7 @@ public class Player extends Entity{
             else if(spriteNumber == 2){
                 spriteNumber = 1 ;
             }
+            spriteCounter = 0 ;
         }
     }
 

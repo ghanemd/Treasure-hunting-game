@@ -16,17 +16,15 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize * maxScreenRow ;    //48X12 pixles
     
 
-    //FPR 
-    int FPS = 60 ;
+    //FPR : frames per second
+    int FPS = 60 ;   //Update the game each 60 seconds 
 
 
-    int playerX = 100 ;
-    int playerY = 100 ;
-    int playerSpeed = 4 ;
 
 
     Thread gameThread ;
     KeyHandler keyHandler = new KeyHandler();
+    Player player = new Player(this, keyHandler) ;
 
     public GamePanel ()
     {
@@ -45,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS ;
+        double drawInterval = 1000000000/FPS ;    //0.016secondes(nanosecondes)
         double nextDrawTime = System.nanoTime() + drawInterval ;
 
         while (gameThread != null)
@@ -54,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
             repaint();
             try {
                 double remaintingTime = nextDrawTime - System.nanoTime() ;
-                remaintingTime = remaintingTime / 1000000 ;
+                remaintingTime = remaintingTime / 1000000 ;    //en millisecondes
                 if (remaintingTime < 0)
                 {
                     remaintingTime = 0 ;
@@ -65,34 +63,20 @@ public class GamePanel extends JPanel implements Runnable{
                 e.printStackTrace();
             }
         }
+        
     }
 
     public void update ()
     {
-        if (keyHandler.upPressed)
-        {
-            playerY -= playerSpeed ;
-        }
-        if (keyHandler.downPressed)
-        {
-            playerY += playerSpeed ;
-        }
-        if (keyHandler.leftPressed)
-        {
-            playerX -= playerSpeed ;
-        }
-        if(keyHandler.rightPressed)
-        {
-            playerX += playerSpeed ;
-        }
+        player.update();
     }
+
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g ;
-        g2.setColor(Color.WHITE);
-        g2.fillRect(playerX, playerY, tileSize , tileSize);
+        player.draw(g2);
         g2.dispose();
     }
 

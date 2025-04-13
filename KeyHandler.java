@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_UP)
+        if (code == KeyEvent.VK_UP)        //virtual key
         {
             upPressed = true ;
         }

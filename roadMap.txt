@@ -1,0 +1,19 @@
+1/ Treasure hunting game :
+
+    create a game loop 
+    display player character 
+    constol player character 
+    display background tiles 
+    display objects 
+    complete the game 
+
+2/ RPG : role-playing game : when players assume the role of characters 
+
+    create monsters 
+    create battle system 
+    create NPCs : non playable characters
+    create inventory
+    create events 
+
+
+FPS : frames per second  

@@ -89,8 +89,13 @@ public class Player extends Entity{
                     case "right" :  this.worldX += speed ;  break ;
                     default:  break;
                 }
-            }
+            }     
         } 
+        spriteCounter++;
+        if (spriteCounter > 10){
+            spriteNumber = (spriteNumber == 1) ? 2 : 1;
+            spriteCounter = 0;
+        }
     }
 
     public void draw (Graphics2D g2)

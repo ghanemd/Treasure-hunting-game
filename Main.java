@@ -12,9 +12,11 @@ public class Main
         GamePanel gamePanel = new GamePanel() ;
         window.add(gamePanel);
         window.pack();
-        gamePanel.startGameThread();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        gamePanel.setUpGame();
+        gamePanel.startGameThread();
     }
 }

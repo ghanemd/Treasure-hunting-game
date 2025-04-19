@@ -30,9 +30,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread ;
     CollisionChecker collisionChecker = new CollisionChecker(this);
+    AssetSetter assetSetter = new AssetSetter(this) ;
     KeyHandler keyHandler = new KeyHandler();
     Player player = new Player(this, keyHandler) ;
     TileManager tileManager = new TileManager(this) ;
+    SuperObject[] obj = new SuperObject[10] ;
 
     public GamePanel ()
     {
@@ -40,6 +42,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+    }
+
+    public void setUpGame()
+    {
+        assetSetter.setObject();
     }
 
     public void startGameThread()
@@ -84,7 +91,19 @@ public class GamePanel extends JPanel implements Runnable{
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g ;
+
+        //TILES
         tileManager.draw(g2);
+
+        //OBJECTS
+        for(int i = 0 ; i < obj.length ; i++){
+            if(obj[i] != null)
+            {
+                obj[i].draw(g2, this);
+            }
+        }
+
+        //PLAYER
         player.draw(g2);
         g2.dispose();
     }

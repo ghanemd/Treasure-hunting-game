@@ -12,6 +12,7 @@ public class Player extends Entity{
 
     public final int screenX ;
     public final int screenY ;
+    int nbKeys ;
 
     public Player (GamePanel gamePanel , KeyHandler keyHandler)
     {
@@ -24,6 +25,8 @@ public class Player extends Entity{
         solidArea = new Rectangle();    //rectangle a bit smaller than the player 
         solidArea.x = 8 ;
         solidArea.y = 16 ;
+        solidAreaDefaultX = solidArea.x ;
+        solidAreaDefaultY = solidArea.y ;
         solidArea.width = 32 ;
         solidArea.height = 32 ;
 
@@ -78,6 +81,10 @@ public class Player extends Entity{
             // CHECK TILE COLLISION
             collisionOn = false ;
             gamePanel.collisionChecker.checkTile(this);
+
+            //CHECK OBJECT COLLISION 
+            int objIndex = gamePanel.collisionChecker.checkObject(this, true) ;
+            pickUpObject(objIndex);
 
             // IF THERE IS NO COLLISION , THE PLAYER CAN MOVE 
 
@@ -137,6 +144,32 @@ public class Player extends Entity{
         }
         g2.drawImage(image,screenX, screenY,gamePanel.tileSize,gamePanel.tileSize,null);
     }
+
+    public void pickUpObject(int index){
+        //IF THE INDEX IS NOT 999 THEN THE PLAYER HAS TOUCHED AN OBJECT
+        if(index != 999 ){
+            String objName = gamePanel.obj[index].name ;
+            switch (objName) {
+                case "Key" :
+                    nbKeys ++ ;
+                    gamePanel.obj[index] = null ; 
+                    System.out.println("Keys : " + nbKeys);
+                    break;
+                case "Door" :
+                    if(nbKeys > 0 ){
+                        gamePanel.obj[index] = null ;
+                        nbKeys -= 1 ;
+                    }
+                    System.out.println("Keys : " + nbKeys);
+                    break;
+                case "Chest" :
+                    break ;
+                default:
+                    break;
+            }
+        }
+    }
+
 
 
 }

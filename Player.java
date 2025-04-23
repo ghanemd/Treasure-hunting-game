@@ -154,22 +154,28 @@ public class Player extends Entity{
                     gamePanel.playSoundEffect(1);
                     nbKeys ++ ;
                     gamePanel.obj[index] = null ; 
-                    System.out.println("Keys : " + nbKeys);
+                    gamePanel.ui.showMessage("You got a key !");
                     break;
                 case "Door" :
                     if(nbKeys > 0 ){
                         gamePanel.playSoundEffect(3);
                         gamePanel.obj[index] = null ;
                         nbKeys -= 1 ;
+                        gamePanel.ui.showMessage("You opened a door !");
+                    }else{
+                        gamePanel.ui.showMessage("You need a key to open the door !");
                     }
-                    System.out.println("Keys : " + nbKeys);
                     break;
                 case "Boots" :
                     gamePanel.playSoundEffect(2);
                     speed += 2 ;
                     gamePanel.obj[index] = null ;
+                    gamePanel.ui.showMessage("Speed up !");
                     break ;
                 case "Chest" :
+                    gamePanel.ui.gameFinished = true ;
+                    gamePanel.stopMusic() ;
+                    gamePanel.playSoundEffect(4) ;
                     break ;
                 default:
                     break;
